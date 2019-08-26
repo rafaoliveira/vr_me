@@ -40,9 +40,8 @@ public class ClienteResource {
 	@PUT
 	@Path("{id}")
 	public Response atualiza(@PathParam("id") Integer id) {
-		clienteService.porId(id);
-		clienteService.removePorId(id);
-		return null;
+		clienteService.atualiza(id);
+		return Response.status(200).build();
 	}
 
 	@GET

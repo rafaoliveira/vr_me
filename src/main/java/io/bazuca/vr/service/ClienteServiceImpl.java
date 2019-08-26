@@ -26,12 +26,11 @@ public class ClienteServiceImpl implements ClienteService {
 
 	@Override
 	@Transactional
-	public Integer atualiza(Cliente cliente) {
-		Cliente c = new Cliente();
+	public void atualiza(final Integer id) {
+		Cliente c = this.porId(id);
 		c.setPrimeiroAcesso(c.isPrimeiroAcesso());
 		c.setCartaoBloqueado(c.isCartaoBloqueado());
-		em.persist(c);
-		return null;
+		em.merge(c);
 	}
 
 	@Override

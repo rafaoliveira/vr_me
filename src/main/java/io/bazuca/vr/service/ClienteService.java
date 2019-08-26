@@ -10,7 +10,7 @@ public interface ClienteService {
 
 	public Cliente porId(final Integer id);
 	public Integer cria(Cliente cliente);
-	public Integer atualiza(Cliente cliente);
+	public void atualiza(final Integer id);
 	public void remove(Cliente cliente);
 	public void removePorId(final Integer id);
 
