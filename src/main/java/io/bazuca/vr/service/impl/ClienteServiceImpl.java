@@ -1,12 +1,10 @@
 package io.bazuca.vr.service.impl;
 
 import java.util.List;
-
 import javax.enterprise.context.ApplicationScoped;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -33,10 +31,19 @@ public class ClienteServiceImpl implements ClienteService {
 
 	@Override
 	@Transactional
-	public void atualiza(final Integer id, final boolean primeiroAcesso) {		
+	public void atualizaPriAcesso(final Integer id, final boolean primeiroAcesso) {		
 		Cliente c = this.porId(id);		
 		LOGGER.info("Atualizando cliente: {}, id: {}, primeiroAcesso: {}", c.getNome(), c.getId(), primeiroAcesso);
 		c.setPrimeiroAcesso(primeiroAcesso);
+		em.merge(c);
+	}
+	
+	@Override
+	@Transactional
+	public void atualizaBloqueio(final Integer id, final boolean cartaoBloqueado) {
+		Cliente c = this.porId(id);		
+		LOGGER.info("Atualizando cliente: {}, id: {}, cartaoBloqueado: {}", c.getNome(), c.getId(), cartaoBloqueado);
+		c.setCartaoBloqueado(cartaoBloqueado);
 		em.merge(c);
 	}
 

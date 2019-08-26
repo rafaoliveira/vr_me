@@ -110,5 +110,4 @@ public class Cliente {
 				", saldo=" + saldo + '\'' +
 				", valorProximoBeneficio=" + valorProximoBeneficio + "}";
 	}
-
 }

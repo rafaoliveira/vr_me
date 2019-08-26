@@ -1,7 +1,5 @@
 package io.bazuca.vr.rest;
 
-import java.util.List;
-
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -27,11 +25,6 @@ public class ClienteResource {
 	@Inject
 	ClienteService clienteService;
 
-    @GET
-    public List<Cliente> lista() {
-        return clienteService.lista();
-    }
-
 	@POST
 	public Response cria(Cliente cliente) {
 		clienteService.cria(cliente);
@@ -39,10 +32,17 @@ public class ClienteResource {
 	}
 
 	@PUT
-	@Path("{id}")
-	public Response atualiza(@PathParam("id") Integer id, ClienteDTO clienteDTO) {
-		clienteService.atualiza(id, clienteDTO.isPrimeiroAcesso());
-		return Response.status(200).build();
+	@Path("{id}/primeiroacesso")
+	public Response atualizaPriAcesso(@PathParam("id") Integer id, ClienteDTO clienteDTO) {
+		clienteService.atualizaPriAcesso(id, clienteDTO.isPrimeiroAcesso());
+		return Response.status(204).build();
+	}
+
+	@PUT
+	@Path("{id}/cartaobloqueado")
+	public Response atualizaBloqueio(@PathParam("id") Integer id, ClienteDTO clienteDTO) {
+		clienteService.atualizaBloqueio(id, clienteDTO.isCartaoBloqueado());
+		return Response.status(204).build();
 	}
 
 	@GET
@@ -59,6 +59,5 @@ public class ClienteResource {
 			throw new WebApplicationException(404);
 		}
 		clienteService.removePorId(id);
-
 	}
 }
