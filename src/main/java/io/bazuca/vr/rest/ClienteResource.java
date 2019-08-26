@@ -15,6 +15,7 @@ import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import io.bazuca.vr.dto.ClienteDTO;
 import io.bazuca.vr.model.Cliente;
 import io.bazuca.vr.service.ClienteService;
 
@@ -39,8 +40,8 @@ public class ClienteResource {
 
 	@PUT
 	@Path("{id}")
-	public Response atualiza(@PathParam("id") Integer id) {
-		clienteService.atualiza(id);
+	public Response atualiza(@PathParam("id") Integer id, ClienteDTO clienteDTO) {
+		clienteService.atualiza(id, clienteDTO.isPrimeiroAcesso());
 		return Response.status(200).build();
 	}
 

@@ -1,18 +1,25 @@
-package io.bazuca.vr.service;
+package io.bazuca.vr.service.impl;
 
 import java.util.List;
+
 import javax.enterprise.context.ApplicationScoped;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import io.bazuca.vr.model.Cliente;
+import io.bazuca.vr.service.ClienteService;
 
 @ApplicationScoped
 public class ClienteServiceImpl implements ClienteService {
+	
+	private static final Logger LOGGER = LoggerFactory.getLogger(ClienteServiceImpl.class);
 
 	@PersistenceContext
-	EntityManager em;
+	private EntityManager em;
 
 	@Override
 	public List<Cliente> lista() {
@@ -26,10 +33,10 @@ public class ClienteServiceImpl implements ClienteService {
 
 	@Override
 	@Transactional
-	public void atualiza(final Integer id) {
-		Cliente c = this.porId(id);
-		c.setPrimeiroAcesso(c.isPrimeiroAcesso());
-		c.setCartaoBloqueado(c.isCartaoBloqueado());
+	public void atualiza(final Integer id, final boolean primeiroAcesso) {		
+		Cliente c = this.porId(id);		
+		LOGGER.info("Atualizando cliente: {}, id: {}, primeiroAcesso: {}", c.getNome(), c.getId(), primeiroAcesso);
+		c.setPrimeiroAcesso(primeiroAcesso);
 		em.merge(c);
 	}
 
